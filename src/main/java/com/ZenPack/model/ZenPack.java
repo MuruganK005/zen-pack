@@ -3,7 +3,7 @@ package com.ZenPack.model;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.util.*;
 
 @Getter
 @Setter
@@ -11,12 +11,11 @@ import java.util.Date;
 @AllArgsConstructor
 @Entity
 @Table(name = "zen_pack")
-@Builder
 public class ZenPack {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     @Column(name = "zen_pack_name")
     private String name;
     @Column(name = "created_by")
@@ -27,7 +26,7 @@ public class ZenPack {
     private String updatedBy;
     @Column(name = "updated_time")
     private Date updatedTime=new Date();
-
-
+    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL,mappedBy = "zenPack")
+    private List<Menu> menus=new ArrayList<>();
 
 }

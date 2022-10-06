@@ -1,10 +1,10 @@
 package com.ZenPack.repository;
 
-import com.ZenPack.model.ZenPack;
+import com.ZenPack.model.Feature;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ZenPackRepository extends JpaRepository<ZenPack,Integer> {
+public interface FeatureRepository extends JpaRepository<Feature,Integer> {
 
 }

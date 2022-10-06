@@ -1,5 +1,6 @@
 package com.ZenPack.controller;
 
+import com.ZenPack.Dto.CreateDto;
 import com.ZenPack.model.ZenPack;
 import com.ZenPack.service.ZenPackServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,5 +20,10 @@ public class ZenPackController {
     @PostMapping("/save")
     public ResponseEntity<ZenPack> saveZenPack(@RequestBody ZenPack zenPack) {
         return service.saveZenPack(zenPack);
+    }
+
+    @PostMapping("/create")
+    public ResponseEntity<CreateDto> createZenPack(@RequestBody CreateDto createDto){
+        return service.createZenPack(createDto);
     }
 }
