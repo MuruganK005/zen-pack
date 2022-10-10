@@ -1,8 +1,9 @@
-package com.ZenPack.service;
+package com.ZenPack.service.Impl;
 
-import com.ZenPack.Dto.CreateDto;
+import com.ZenPack.Dto.ZenPackDto;
 import com.ZenPack.model.ZenPack;
 import com.ZenPack.repository.ZenPackRepository;
+import com.ZenPack.service.Service.ZenPackService;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-public class ZenPackServiceImpl implements ZenPackService{
+public class ZenPackServiceImpl implements ZenPackService {
 
 
     @Autowired
@@ -30,13 +31,13 @@ public class ZenPackServiceImpl implements ZenPackService{
     }
 
     @Override
-    public ResponseEntity<CreateDto> createZenPack(CreateDto createDto) {
-        ZenPack zenPack=new ZenPack();
+    public ResponseEntity<ZenPackDto> createZenPack(ZenPackDto createDto) {
+        ZenPack zenPack;
         ModelMapper mapper=new ModelMapper();
         mapper.getConfiguration().setAmbiguityIgnored(true);
         ZenPack zenPack1=mapper.map(createDto,ZenPack.class);
         zenPack=repository.save(zenPack1);
-        CreateDto dto=mapper.map(zenPack, CreateDto.class);
+        ZenPackDto dto=mapper.map(zenPack, ZenPackDto.class);
         return new ResponseEntity<>(dto,HttpStatus.CREATED);
     }
 }

@@ -1,8 +1,8 @@
 package com.ZenPack.controller;
 
-import com.ZenPack.Dto.CreateDto;
+import com.ZenPack.Dto.ZenPackDto;
 import com.ZenPack.model.ZenPack;
-import com.ZenPack.service.ZenPackServiceImpl;
+import com.ZenPack.service.Impl.ZenPackServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,7 +23,8 @@ public class ZenPackController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<CreateDto> createZenPack(@RequestBody CreateDto createDto){
+    public ResponseEntity<ZenPackDto> createZenPack(@RequestBody ZenPackDto createDto){
         return service.createZenPack(createDto);
     }
+
 }

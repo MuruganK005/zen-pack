@@ -1,11 +1,11 @@
-package com.ZenPack.service;
+package com.ZenPack.service.Service;
 
-import com.ZenPack.Dto.CreateDto;
+import com.ZenPack.Dto.ZenPackDto;
 import com.ZenPack.model.ZenPack;
 import org.springframework.http.ResponseEntity;
 
 public interface ZenPackService {
     ResponseEntity<ZenPack> saveZenPack(ZenPack zenPack);
 
-    ResponseEntity<CreateDto> createZenPack(CreateDto createDto);
+    ResponseEntity<ZenPackDto> createZenPack(ZenPackDto createDto);
 }
