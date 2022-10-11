@@ -1,6 +1,8 @@
 package com.ZenPack.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import javax.persistence.*;
 import java.util.*;
@@ -11,6 +13,8 @@ import java.util.*;
 @AllArgsConstructor
 @Entity
 @Table(name = "zen_pack")
+@ConfigurationProperties(value = "app.log")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ZenPack {
 
     @Id
@@ -35,6 +39,6 @@ public class ZenPack {
 
     @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinColumn(name = "zen_pack_id")
-    private List<Menu> menus;
+    private Set<Menu> menus;
 
 }

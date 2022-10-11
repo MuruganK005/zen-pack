@@ -1,9 +1,11 @@
 package com.ZenPack.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import javax.persistence.*;
 import java.util.*;
@@ -14,6 +16,8 @@ import java.util.*;
 @Table(name = "menu")
 @AllArgsConstructor
 @NoArgsConstructor
+@ConfigurationProperties(value = "menu_name")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Menu {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,8 +33,18 @@ public class Menu {
     @Column(name = "created_by")
     private String createdBy;
 
-    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    @JoinColumn(name = "menu_id")
-    private List<SubMenu> subMenus;
+    @Column(name = "parent_menu_id")
+    private String parentMenuId;
+
+   @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+   @JoinColumn(name = "menu_id")
+    private Set<Menu> menus;
+
+
+   @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+   @JoinColumn(name = "menu_id")
+    private Set<Feature> features;
+
+
 
 }
