@@ -13,6 +13,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import java.util.List;
+
 @Service
 @Slf4j
 public class ZenPackServiceImpl implements ZenPackService {
@@ -20,6 +23,9 @@ public class ZenPackServiceImpl implements ZenPackService {
 
     @Autowired
     private ZenPackRepository repository;
+
+    @Autowired
+    private EntityManager manager;
 
     private static final Logger logger=LoggerFactory.getLogger(ZenPackServiceImpl.class);
 
@@ -32,13 +38,26 @@ public class ZenPackServiceImpl implements ZenPackService {
 
     @Override
     public ResponseEntity<ZenPackDto> createZenPack(ZenPackDto createDto) {
-        ZenPack zenPack;
-        ModelMapper mapper=new ModelMapper();
-        mapper.getConfiguration().setAmbiguityIgnored(true);
-        ZenPack zenPack1=mapper.map(createDto,ZenPack.class);
+        try {
+            ZenPack zenPack;
+            ModelMapper mapper = new ModelMapper();
+            mapper.getConfiguration().setAmbiguityIgnored(true);
+            ZenPack zenPack1 = mapper.map(createDto, ZenPack.class);
+            zenPack = repository.save(zenPack1);
+            //List<ZenPack> zenPacks=manager.createNativeQuery("select * from zenpack where JSON_SEARCH(items, 'all', 'Menu menuName') IS NOT NULL", Store.class).getResultList();
+            //log.info(zenPacks.toString());
+            //zenPacks=repository.findAll();
+            ZenPackDto dto = mapper.map(zenPack, ZenPackDto.class);
+            return new ResponseEntity<>(dto,HttpStatus.CREATED);
+        }
+        catch (Exception e){
+            throw e;
+        }
 
-        zenPack=repository.save(zenPack1);
-        ZenPackDto dto=mapper.map(zenPack, ZenPackDto.class);
-        return new ResponseEntity<>(dto,HttpStatus.CREATED);
+    }
+    @Override
+    public ResponseEntity<List<ZenPack>> getAllZenPack() {
+       List<ZenPack> zenPacks= repository.findAll();
+        return new ResponseEntity<>(zenPacks,HttpStatus.ACCEPTED);
     }
 }
