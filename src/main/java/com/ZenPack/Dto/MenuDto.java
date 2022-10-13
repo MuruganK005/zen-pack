@@ -2,12 +2,9 @@ package com.ZenPack.Dto;
 
 import com.ZenPack.model.Feature;
 import com.ZenPack.model.Menu;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -20,5 +17,4 @@ public class MenuDto {
     private Integer parentMenuId;
     private List<Menu> menus;
     private List<Feature> features;
-
 }
