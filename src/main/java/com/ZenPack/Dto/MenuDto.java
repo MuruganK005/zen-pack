@@ -13,9 +13,8 @@ import java.util.List;
 @Setter
 public class MenuDto {
 
-    private Long id;
     private String menuName;
-    private Date createdTime;
+    private Long createdTime;
     private String createdBy;
     private Integer parentMenuId;
     private List<Menu> menus;

@@ -38,10 +38,12 @@ public class Menu {
     private List<Menu> subMenus;
 */
 
+/*
 
    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
    @JoinColumn(name = "menu_id")
     private List<Feature> features;
+*/
 
 
 

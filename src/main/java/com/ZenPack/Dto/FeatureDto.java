@@ -8,10 +8,9 @@ import java.util.Date;
 @Setter
 public class FeatureDto {
 
-    private Long featureId;
     private String featureName;
     private String featureUrl;
     private String createdBy;
-    private Date createdTime;
+    private Long createdTime;
 
 }

@@ -2,6 +2,7 @@ package com.ZenPack.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.google.gson.JsonObject;
 import lombok.*;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
@@ -26,20 +27,25 @@ public class ZenPack {
     @Column(name = "zen_pack_name")
     private String name;
 
-    @Column(name = "created_by")
+    @Column(name = "json_data")
+    private String jsonData;
+
+
+
+    /*@Column(name = "created_by")
     private String createdBy;
 
     @Column(name = "created_date")
-    private Date createdDate=new Date();
+    private Long createdDate;
 
     @Column(name = "updated_by")
     private String updatedBy;
 
     @Column(name = "updated_time")
-    private Date updatedTime=new Date();
+    private Long updatedTime;*/
 
-    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+/*    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinColumn(name = "menu_id")
-    private List<Menu> menus;
+    private List<Menu> menus;*/
 
 }
