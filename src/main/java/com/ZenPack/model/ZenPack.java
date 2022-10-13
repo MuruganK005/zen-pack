@@ -1,5 +1,6 @@
 package com.ZenPack.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.google.gson.JsonObject;
@@ -15,7 +16,7 @@ import java.util.*;
 @AllArgsConstructor
 @Entity
 @Table(name = "zen_pack")
-@JsonIgnoreProperties(ignoreUnknown = true)
+/*@JsonIgnoreProperties(ignoreUnknown = true)*/
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ZenPack {
 
@@ -27,6 +28,7 @@ public class ZenPack {
     @Column(name = "zen_pack_name")
     private String name;
 
+    @JsonFormat(shape = JsonFormat.Shape.OBJECT)
     @Column(name = "json_data")
     private String jsonData;
 

@@ -2,11 +2,14 @@ package com.ZenPack.service.Impl;
 
 import com.ZenPack.Dto.MenuDto;
 import com.ZenPack.Dto.ZenPackDto;
+import com.ZenPack.model.Menu;
 import com.ZenPack.model.ZenPack;
 import com.ZenPack.repository.ZenPackRepository;
 import com.ZenPack.service.Service.ZenPackService;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -80,23 +83,9 @@ public class ZenPackServiceImpl implements ZenPackService {
         return new ResponseEntity<>(zenPackDto1, HttpStatus.ACCEPTED);
     }
     @Override
-    public ResponseEntity<List<ZenPack>> getAllZenPack() {
-/*        List<ZenPackDto> dtos = new ArrayList<>();*/
+    public List<ZenPack> getAllZenPack() throws JsonProcessingException {
         List<ZenPack> zenPacks = repository.findAll();
-/*        List<ZenPackDto> zenPackDto2 = null;*/
-      /*  for (ZenPack zenPackDto : zenPacks) {
-            Gson gson = new Gson();
-            MenuDto[] userArray = gson.fromJson(zenPackDto.getJsonData(), MenuDto[].class);
-            ZenPackDto zenPackDto1 = new ZenPackDto();
-            zenPackDto1.setMenus(Arrays.stream(userArray).toList());
-            zenPackDto1.setName(zenPackDto.getName());
-            dtos.add(zenPackDto1);*/
-/*            ModelMapper mapper = new ModelMapper();
-            mapper.getConfiguration().setAmbiguityIgnored(true);
-            zenPackDto2 = Collections.singletonList(mapper.map(zenPacks, ZenPackDto.class));*/
-        /*    return new ResponseEntity<>(zenPackDto2, HttpStatus.ACCEPTED);*/
-    /*    }*/
-        return new ResponseEntity<>(zenPacks, HttpStatus.ACCEPTED);
+        return zenPacks;
     }
 
     @Override
@@ -108,9 +97,6 @@ public class ZenPackServiceImpl implements ZenPackService {
     @Override
     public Optional<ZenPack> getByZenPackId(Long zenPackId) {
        Optional<ZenPack> zenPack= repository.findByZenPackId(zenPackId);
-   /*    ModelMapper mapper=new ModelMapper();
-       mapper.getConfiguration().setAmbiguityIgnored(true);
-       ZenPackDto dto=mapper.map(zenPack,ZenPackDto.class);*/
         return zenPack;
     }
 }

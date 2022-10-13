@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @RestController
@@ -31,7 +32,7 @@ public class ZenPackController {
         return service.createZenPack(createDto);
     }
     @GetMapping(value = "get_all",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<ZenPack>> getAllZenPack(){
+    public List<ZenPack> getAllZenPack() throws JsonProcessingException {
         return service.getAllZenPack();
     }
     @DeleteMapping("/delete/{zenPackId}")
