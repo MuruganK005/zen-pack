@@ -26,15 +26,9 @@ public class FeaturedList {
     private String text;
     @Column(name = "icon")
     private String icon;
-//    @Column(name = "is_default")
-//    private Boolean isDefault;
     @Column(name = "is_setting_menu")
     private Boolean isSettingMenu;
     @Column(name = "feature_url")
     private String featureUrl;
-//    @Column(name = "created_time")
-//    private Date createdTime=new Date();
-//    @Column(name = "created_by")
-//    private String createdBy;
 
 }
