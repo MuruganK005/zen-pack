@@ -73,10 +73,6 @@ public class ZenPackController {
         return service.getAllZenpack();
     }
 
-    @GetMapping("/sorting")
-    public List<ZenPack> findAllByNameLikeAndCategoryIn(String field){
-        return zenPackRepository.findAll();
-    }
 
     @PostMapping("/create_zen_pack")
     public void createZenPack(@RequestBody List<ZenPackDto> zenPacks) {
@@ -88,18 +84,6 @@ public class ZenPackController {
             zenpackObj.setJsonData(menusJson);
             zenPackRepository.save(zenpackObj);
         }
-    }
-
-    @GetMapping("/search_by_zen_pack_name")
-    @ResponseStatus(HttpStatus.OK)
-    public List<ZenPack> findByName(@RequestParam String keyword){
-        return service.findByKeyword(keyword);
-    }
-
-    @GetMapping("/get_sorting")
-    public List<ZenPack> getZenPackWithSorting(@PathVariable String name){
-        List<ZenPack> allname = service.findProductsWithSorting(name);
-        return zenPackRepository.findAll();
     }
 
     @PostMapping("/search")

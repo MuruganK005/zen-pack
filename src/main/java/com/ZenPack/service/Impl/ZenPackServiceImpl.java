@@ -57,59 +57,7 @@ public class ZenPackServiceImpl implements ZenPackService {
         return repository.findByKeyword(keyword);
     }
 
-//    @Override
-//    public ResponseEntity<String> getBySpecification(boolean asc,SpecificationDto specificationDto) {
-//        ModelMapper modelMapper = new ModelMapper();
-//        modelMapper.getConfiguration().setAmbiguityIgnored(true);
-//        Sort.Direction sort = Sort.Direction.DESC;
-//        if(asc){
-//            sort = Sort.Direction.ASC;
-//        }
-//        ZenPackSpecification spec = new ZenPackSpecification(specificationDto);
-//        Page<ZenPack> zenPacks=repository.findAll(spec,Pageable.unpaged());
-////        Object mapperUtil = null;
-//        List<ZenPackDto> zenPacks1=mapperUtil.toModelList(zenPacks.getContent(),ZenPackDto.class);
-//        return new ResponseEntity<>(HttpStatus.OK);
-//    }
 
-//    @Override
-//    public List<ZenPack> findAllOrderByNameAsc() {
-////        var sort = new Sort(Sort.Direction.ASC,"name");
-//        List<ZenPack> item = repository.findAll(Sort.by(Sort.Direction.DESC, "id");
-//        return repository.findAllOrderByNameAsc(item);
-//    }
-
-/*    @Override
-    public List<ZenPackDto> getZenPacks(String name) {
-        List<ZenPack> zenPacks = repository.findAll((Specification<ZenPack>) (root, cq, cb) -> {
-            Predicate p = cb.conjunction();
-//            if (Objects.nonNull(fromDate) && Objects.nonNull(toDate) && fromDate.before(toDate)) {
-//                p = cb.and(p, cb.between(root.get("createdDate"), fromDate, toDate));
-//            }
-            if (!StringUtils.isEmpty(name)) {
-                p = cb.and(p, cb.like(root.get("name"), "%" + name + "%"));
-            }
-            cq.orderBy(cb.desc(root.get("name")), cb.asc(root.get("id")));
-            return p;
-        }, ).getContent();
-        return ZenPackConverter.convertToZenPackDTO(zenPacks);
-    }*/
-
-//    @Override
-//    public ResponseEntity<String> getBySpecification(String column, boolean asc, SpecificationDto specificationDto){
-//        ModelMapper modelMapper = new ModelMapper();
-//        modelMapper.getConfiguration().setAmbiguityIgnored(true);
-//        Sort.Direction sort = Sort.Direction.DESC;
-//        if(asc){
-//            sort = Sort.Direction.ASC;
-//        }
-//        ZenPackSpecification spec = new ZenPackSpecification(specificationDto);
-//        Page<ZenPack> zenPacks=repository.findAll(spec,Pageable.unpaged());
-////        Object mapperUtil = null;
-//        List<ZenPackDto> zenPacks1=mapperUtil.toModelList(zenPacks.getContent(),ZenPackDto.class);
-//        return new ResponseEntity<>(HttpStatus.OK);
-//
-//    }
     @Override
         public List<ZenPack> findProductsWithSorting(String name){
         return repository.findAll(Sort.by(Sort.Direction.ASC,name));

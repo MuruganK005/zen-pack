@@ -1,5 +1,6 @@
 package com.ZenPack.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
@@ -15,12 +16,15 @@ import java.util.List;
 @Entity
 @Table(name = "zen_pack")
 @Builder
+@JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ZenPack {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int zenPackId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "zen_pack_id")
+    private Long zenPackId;
+
     @Column(name = "zen_pack_name")
     private String name;
     @Column(name = "created_by")
@@ -32,7 +36,8 @@ public class ZenPack {
     @Column(name = "updated_time")
     private Date updatedTime=new Date();
 
-    @Column(name = "jsonData")
+
+    @Column(name = "json_data")
     private String jsonData;
 
 

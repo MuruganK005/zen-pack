@@ -9,12 +9,13 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.UUID;
 
 @Repository
 public interface FeaturedListRepository extends JpaRepository<FeaturedList, Integer> {
 
     //Custom Query
-    @Query("SELECT p FROM FeaturedList p WHERE p.featureName LIKE %:keyword%" )
+    @Query("SELECT p FROM FeaturedList p WHERE p.text LIKE %:keyword%" )
     List<FeaturedList> findByKeyword(String keyword);
 
 }

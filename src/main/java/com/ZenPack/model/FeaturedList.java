@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.UUID;
 
 @Entity
 @Data
@@ -13,19 +14,27 @@ import java.util.Date;
 @NoArgsConstructor
 @Getter
 @Setter
-@Table(name = "Featured_List")
+@Table(name = "Features")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class FeaturedList {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
-    @Column(name = "feature_name")
-    private String featureName;
+    private Integer id;
+    @Column(name = "resource_id")
+    private String featureId;
+    @Column(name = "features")
+    private String text;
+    @Column(name = "icon")
+    private String icon;
+//    @Column(name = "is_default")
+//    private Boolean isDefault;
+    @Column(name = "is_setting_menu")
+    private Boolean isSettingMenu;
     @Column(name = "feature_url")
     private String featureUrl;
-    @Column(name = "created_time")
-    private Date createdTime=new Date();
-    @Column(name = "created_by")
-    private String createdBy;
+//    @Column(name = "created_time")
+//    private Date createdTime=new Date();
+//    @Column(name = "created_by")
+//    private String createdBy;
 
 }

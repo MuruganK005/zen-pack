@@ -19,32 +19,13 @@ import java.util.List;
 public class SpecificationService {
     @Autowired
     private ZenPackRepository repository;
-//    public ResponseEntity<String> getBySpecification(boolean asc, SpecificationDto specificationDto) {
-//        ModelMapper modelMapper = new ModelMapper();
-//        modelMapper.getConfiguration().setAmbiguityIgnored(true);
-//        Sort.Direction sort = Sort.Direction.DESC;
-//        if(asc){
-//            sort = Sort.Direction.ASC;
-//        }
-//        ZenPackSpecification spec = new ZenPackSpecification(specificationDto);
-//        Page<ZenPack> zenPacks=repository.findAll(spec, Pageable.unpaged());
-////        Object mapperUtil = null;
-//        List<ZenPackDto> zenPacks1=mapperUtil.toModelList(zenPacks.getContent(),ZenPackDto.class);
-//        return new ResponseEntity<>(HttpStatus.OK);
-//    }
-
 
     public ResponseEntity<Page<ZenPack>> getBySpecification(SpecificationDto specificationDto) {
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setAmbiguityIgnored(true);
         Sort.Direction sort = Sort.Direction.DESC;
-//        if(asc){
-//            sort = Sort.Direction.ASC;
-//        }
         ZenPackSpecification spec = new ZenPackSpecification(specificationDto);
         Page<ZenPack> zenPacks=repository.findAll(spec, Pageable.unpaged());
-//        Object mapperUtil = null;
-//        List<ZenPackDto> zenPacks1=mapperUtil.toModelList(zenPacks.getContent(),ZenPackDto.class);
         return new ResponseEntity<>(zenPacks,HttpStatus.OK);
     }
 }

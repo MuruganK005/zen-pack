@@ -1,6 +1,6 @@
 package com.ZenPack.exception;
 
-import lombok.Value;
+import org.springframework.beans.factory.annotation.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.ExceptionUtils;
 import org.springframework.http.HttpHeaders;
@@ -21,7 +21,7 @@ import java.util.Objects;
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     public static final String TRACE = "trace";
 
-//    @Value("${reflectoring.trace:false}")
+    @Value("${zenPack.trace:false}")
     private boolean printStackTrace;
 
     @Override
@@ -62,9 +62,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                                                       HttpStatus httpStatus,
                                                       WebRequest request) {
         ErrorResponse errorResponse = new ErrorResponse(httpStatus.value(), message);
-//        if (printStackTrace  && isTraceOn(request)) {
-//            errorResponse.setStackTrace(ExceptionUtils.getStackTrace(exception));
-//        }
         return ResponseEntity.status(httpStatus).body(errorResponse);
     }
 

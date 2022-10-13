@@ -1,7 +1,10 @@
 package com.ZenPack.controller;
 
+import com.ZenPack.Dto.FeatureDto;
 import com.ZenPack.model.FeaturedList;
 import com.ZenPack.service.Impl.FeaturedListServiceImpl;
+import com.sun.xml.bind.v2.schemagen.episode.SchemaBindings;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -17,24 +21,28 @@ public class FeatureListController {
     @Autowired
     private FeaturedListServiceImpl service;
 
-    @PostMapping("/create_feature_list")
+    @Autowired
+    private ModelMapper modelMapper;
+
+    @PostMapping("/create_features")
     @ResponseStatus(HttpStatus.CREATED)
     public FeaturedList create(@RequestBody FeaturedList featuredList){
         return service.save(featuredList);
     }
 
-    @GetMapping("/get_feature_list")
+
+    @GetMapping("/get_features")
     @ResponseStatus(HttpStatus.OK)
     public List<FeaturedList> findAllFeatureList(){
         return service.findAllList();
     }
-
+//
     @GetMapping("/search_by_name")
     @ResponseStatus(HttpStatus.OK)
     public List<FeaturedList> findByName(@RequestParam String keyword){
         return service.findByKeyword(keyword);
     }
-
+//
     @GetMapping("{id}")
     @ResponseStatus(HttpStatus.OK)
     public Optional<FeaturedList> getList(@PathVariable int id){
@@ -53,11 +61,10 @@ public class FeatureListController {
                                                    @RequestBody FeaturedList featuredList){
         return service.getListById(listId)
                 .map(savedList -> {
-
-                    savedList.setFeatureName(featuredList.getFeatureName());
+                    savedList.setText(featuredList.getText());
                     savedList.setFeatureUrl(featuredList.getFeatureUrl());
-                    savedList.setCreatedTime(featuredList.getCreatedTime());
-                    savedList.setCreatedBy(featuredList.getCreatedBy());
+                    savedList.setIcon(featuredList.getIcon());
+                    savedList.setIsSettingMenu(featuredList.getIsSettingMenu());
 
                     FeaturedList updatedList = service.updatedList(savedList);
                     return new ResponseEntity<>(updatedList, HttpStatus.OK);

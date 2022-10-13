@@ -13,6 +13,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString(includeFieldNames = false)
 public class Menu {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
