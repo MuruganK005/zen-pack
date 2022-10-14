@@ -37,6 +37,12 @@
 			<artifactId>json</artifactId>
 			<version>20220924</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.zookeeper/zookeeper -->
+		<dependency>
+			<groupId>org.apache.zookeeper</groupId>
+			<artifactId>zookeeper</artifactId>
+			<version>3.8.0</version>
+		</dependency>
 
 		<dependency>
 			<groupId>io.springfox</groupId>
