@@ -43,7 +43,7 @@ public class FeatureListController {
         return service.findByKeyword(keyword);
     }
 //
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Optional<FeaturedList> getList(@PathVariable int id){
         return service.getListById(id);
@@ -56,7 +56,7 @@ public class FeatureListController {
         service.deleteList(id);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<FeaturedList> updateEmployee(@PathVariable("id") int listId,
                                                    @RequestBody FeaturedList featuredList){
         return service.getListById(listId)
