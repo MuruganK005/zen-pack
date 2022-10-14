@@ -12,7 +12,7 @@
 	<artifactId>Zen_Pack-Project</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>zen_pack</name>
+	<name>zen-pack</name>
 	<description>Zen-Pack Project Developement</description>
 	<properties>
 		<java.version>19</java.version>
