@@ -2,7 +2,9 @@ package com.ZenPack.utils;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import org.springframework.context.annotation.Configuration;
 
+@Configuration
 public class DataSourceConnection {
 	
 	public static HikariDataSource dataSource = null;
