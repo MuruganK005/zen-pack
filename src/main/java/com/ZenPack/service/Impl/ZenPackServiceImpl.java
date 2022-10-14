@@ -5,12 +5,15 @@ import com.ZenPack.Dto.ZenPackDto;
 import com.ZenPack.model.Menu;
 import com.ZenPack.model.ZenPack;
 import com.ZenPack.repository.ZenPackRepository;
-import com.ZenPack.service.Service.ZenPackService;
+import com.ZenPack.service.Services.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import lombok.extern.slf4j.Slf4j;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,25 +46,30 @@ public class ZenPackServiceImpl implements ZenPackService {
     }
 
     @Override
-    public ResponseEntity<ZenPackDto> createZenPack(List<ZenPackDto> createDto) throws JsonProcessingException {
+    public ZenPackDto createZenPack(ZenPackDto createDto) throws JsonProcessingException {
         ZenPackDto zenPackDto1 = null;
-        for (ZenPackDto zenPackDto : createDto) {
+       // for (ZenPackDto zenPackDto : createDto) {
+     // convert request object into json objec
+	  JSONObject zenpackJson = new JSONObject(createDto);
+	  zenPackDto1 = new Gson().fromJson(zenpackJson.toString(), ZenPackDto.class);
             ModelMapper mapper = new ModelMapper();
             mapper.getConfiguration().setAmbiguityIgnored(true);
-            ZenPack zenPack = mapper.map(zenPackDto, ZenPack.class);
+            ZenPack zenPack = mapper.map(zenPackDto1, ZenPack.class);
 /*            ObjectMapper objectMapper=new ObjectMapper();
             String menuJson=objectMapper.writeValueAsString(zenPackDto.getMenus());*/
-            String menuJson = new Gson().toJson(zenPackDto.getMenus());
+            JSONArray menuJson = zenpackJson.getJSONArray("menus");
+            MenuDto[] userArray = new Gson().fromJson(menuJson.toString(), MenuDto[].class);
+           // String menuJson = new Gson().toJson(zenPackDto.getMenus());
             Gson gson = new Gson();
-            MenuDto[] userArray = gson.fromJson(menuJson, MenuDto[].class);
-            zenPack.setJsonData(menuJson);
+           // MenuDto[] userArray = gson.fromJson(menuJson, MenuDto[].class);
+            zenPack.setJsonData(menuJson.toString());
             zenPackDto1 = new ZenPackDto();
             zenPackDto1.setZenPackId(zenPack.getZenPackId());
             zenPackDto1.setName(zenPack.getName());
             zenPackDto1.setMenus(Arrays.asList(userArray));
             repository.save(zenPack);
-        }
-        return new ResponseEntity<>(zenPackDto1, HttpStatus.ACCEPTED);
+//        }
+        return zenPackDto1;
     }
 
 

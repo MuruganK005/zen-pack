@@ -1,4 +1,4 @@
-package com.ZenPack.service.Service;
+package com.ZenPack.service.Services;
 
 import com.ZenPack.Dto.ZenPackDto;
 import com.ZenPack.model.ZenPack;
@@ -12,7 +12,7 @@ import java.util.Optional;
 public interface ZenPackService {
     ResponseEntity<ZenPack> saveZenPack(ZenPack zenPack);
 
-    ResponseEntity<ZenPackDto> createZenPack(List<ZenPackDto> createDto) throws JsonProcessingException;
+    ZenPackDto createZenPack(ZenPackDto createDto) throws JsonProcessingException;
 
     List<ZenPack> getAllZenPack() throws JsonProcessingException;
 
