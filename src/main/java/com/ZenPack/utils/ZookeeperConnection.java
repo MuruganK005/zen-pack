@@ -95,9 +95,6 @@ public class ZookeeperConnection {
 			byte[] b = zk.getData(nodePath1 + "/" + children1.get(i), true, new Stat());
 			zkData.put(children1.get(i), new String(b, ZKConstants.STRING_FORMAT));
 		}
-
-		// System.out.println("zkData: " + zkData);
-
 		return zkData;
 	}
 
@@ -106,9 +103,6 @@ public class ZookeeperConnection {
 		String path = "./properties/ReportQueries/";
 
 		try {
-			// String path = "./properties/ReportQueries/" +
-			// devicesArray.get(i).toString().toLowerCase().replace("-", "") +
-			// "ServerClickReport.properties";
 			ClassLoader classLoader = getClass().getClassLoader();
 			URL resources = classLoader.getResource(path);
 			System.out.println("!!!!! File: " + resources.getFile());

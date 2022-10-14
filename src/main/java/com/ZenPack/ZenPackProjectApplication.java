@@ -30,13 +30,11 @@ public class ZenPackProjectApplication{
 	public ModelMapper modelMapper(){
 		return new ModelMapper();
 	}
-/*
-	@Bean
+/*	@Bean
 	public Jackson2ObjectMapperBuilder objectMapperBuilder() {
 		Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder();
 		builder.serializerByType(PagedList.class, new PagedListSerializer());
 		return builder;
-	}
-*/
+	}*/
 
 }
