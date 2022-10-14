@@ -1,8 +1,6 @@
 package com.ZenPack.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import javax.persistence.*;
 import java.util.*;

@@ -1,16 +1,17 @@
 package com.ZenPack.Dto;
+
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.Date;
 
 @Getter
 @Setter
 public class FeatureDto {
 
-    private String featureName;
+    private Integer id;
+    private String featureId;
+    private String text;
+    private String icon;
+    private Boolean isSettingMenu;
     private String featureUrl;
-    private String createdBy;
-    private Long createdTime;
 
 }

@@ -1,9 +1,9 @@
 package com.ZenPack.Dto;
 
 
+
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.boot.configurationprocessor.json.JSONObject;
 
 @Getter
 @Setter
@@ -15,6 +15,5 @@ public class ResponseDto {
     private Object data;
     private ZenPackDto Jdata;
     private Boolean validation=false;
-
 
 }

@@ -1,6 +1,5 @@
 package com.ZenPack.Dto;
 
-import com.ZenPack.Specification.Operator;
 import lombok.*;
 
 import java.util.List;

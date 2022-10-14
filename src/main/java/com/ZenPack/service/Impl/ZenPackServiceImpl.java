@@ -20,12 +20,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
-import javax.transaction.Transactional;
 import java.util.*;
 
 @Service
 @Slf4j
-@Transactional
 public class ZenPackServiceImpl implements ZenPackService {
 
 
@@ -39,9 +37,9 @@ public class ZenPackServiceImpl implements ZenPackService {
 
     @Override
     public ResponseEntity<ZenPack> saveZenPack(ZenPack zenPack) {
-         repository.save(zenPack);
-         logger.info("Zen-Pack Saved Successfully");
-         return new ResponseEntity<>(zenPack, HttpStatus.CREATED);
+        repository.save(zenPack);
+        logger.info("Zen-Pack Saved Successfully");
+        return new ResponseEntity<>(zenPack, HttpStatus.CREATED);
     }
 
     @Override
@@ -62,14 +60,17 @@ public class ZenPackServiceImpl implements ZenPackService {
             zenPackDto1.setName(zenPack.getName());
             zenPackDto1.setMenus(Arrays.stream(userArray).toList());
             repository.save(zenPack);
-            return new ResponseEntity<>(zenPackDto1, HttpStatus.ACCEPTED);
         }
-        /* *//*ZenPack zenPack=new ZenPack();
+        return new ResponseEntity<>(zenPackDto1, HttpStatus.ACCEPTED);
+    }
+
+
+/*         ZenPack zenPack=new ZenPack();
     ObjectMapper mapper=new ObjectMapper();
     String gson= new Gson().toJson(createDto);
     zenPack.setJsonData(mapper.writeValueAsString(createDto));
-    repository.save(zenPack);*//*
-    ResponseDto responseDto=new ResponseDto();
+    repository.save(zenPack);*/
+   /* ResponseDto responseDto=new ResponseDto();
     responseDto.setResponseMessage("ZenPack Created Successfully");
     responseDto.setResponseCode("Ok");
     responseDto.setStatusCode(200);
@@ -77,11 +78,10 @@ public class ZenPackServiceImpl implements ZenPackService {
     responseDto.setData(null);
     Gson gson1=new Gson();
     ZenPackDto zenPackDto=gson1.fromJson(gson,ZenPackDto.class);
-    responseDto.setJdata(zenPackDto);
-
-    return responseDto;*/
+    responseDto.setJdata(zenPackDto);*/
+  /*  return responseDto;
         return new ResponseEntity<>(zenPackDto1, HttpStatus.ACCEPTED);
-    }
+    }*/
     @Override
     public List<ZenPack> getAllZenPack() throws JsonProcessingException {
         List<ZenPack> zenPacks = repository.findAll();
@@ -96,7 +96,7 @@ public class ZenPackServiceImpl implements ZenPackService {
 
     @Override
     public Optional<ZenPack> getByZenPackId(Long zenPackId) {
-       Optional<ZenPack> zenPack= repository.findByZenPackId(zenPackId);
+        Optional<ZenPack> zenPack= repository.findByZenPackId(zenPackId);
         return zenPack;
     }
 }
