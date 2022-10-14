@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.Zen-Pack</groupId>
-	<artifactId>Zen_Pack-Project</artifactId>
+	<artifactId>zen-pack</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>zen-pack</name>
