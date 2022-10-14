@@ -58,7 +58,7 @@ public class ZenPackServiceImpl implements ZenPackService {
             zenPackDto1 = new ZenPackDto();
             zenPackDto1.setZenPackId(zenPack.getZenPackId());
             zenPackDto1.setName(zenPack.getName());
-            zenPackDto1.setMenus(Arrays.stream(userArray).toList());
+            zenPackDto1.setMenus(Arrays.asList(userArray));
             repository.save(zenPack);
         }
         return new ResponseEntity<>(zenPackDto1, HttpStatus.ACCEPTED);
