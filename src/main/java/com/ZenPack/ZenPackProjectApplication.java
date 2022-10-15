@@ -49,10 +49,10 @@ public class ZenPackProjectApplication extends SpringBootServletInitializer {
 	public void doSomethingAfterStartup() throws IOException, KeeperException, InterruptedException
 	{
 		ZookeeperConnection zkConnection = new ZookeeperConnection();
-		ZKModel.zkData = zkConnection.getZKData();
+		//ZKModel.zkData = zkConnection.getZKData();
 
 		Utilities utilites = new Utilities();
-		DataSourceConnection dataSource = new DataSourceConnection();
+		//DataSourceConnection dataSource = new DataSourceConnection();
 
 	}
 	
