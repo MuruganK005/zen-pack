@@ -1,5 +1,7 @@
 package com.ZenPack;
 
+import javax.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Value;
 import com.ZenPack.utils.DataSourceConnection;
 import com.ZenPack.utils.ZKModel;
 import com.ZenPack.utils.ZookeeperConnection;
@@ -26,7 +28,10 @@ import java.io.IOException;
 @EnableSwagger2
 @ComponentScan
 //@SpringBootApplication
-public class ZenPackProjectApplication{
+public class ZenPackProjectApplication extends SpringBootServletInitializer {
+	
+	@Value("${postgresurl}")
+	private  String server;
 
 	public static void main(String[] args) {
 		SpringApplication.run(ZenPackProjectApplication.class, args);
@@ -49,6 +54,11 @@ public class ZenPackProjectApplication{
 		Utilities utilites = new Utilities();
 		DataSourceConnection dataSource = new DataSourceConnection();
 
+	}
+	
+	@PostConstruct
+	public void print() {
+		System.out.println(server);
 	}
 /*	@Bean
 	public Jackson2ObjectMapperBuilder objectMapperBuilder() {

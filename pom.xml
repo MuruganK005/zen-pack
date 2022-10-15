@@ -16,6 +16,7 @@
 	<description>zen-pack</description>
 	<properties>
 		<java.version>1.8</java.version>
+		<spring-cloud.version>2021.0.3</spring-cloud.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -37,13 +38,6 @@
 			<artifactId>json</artifactId>
 			<version>20220924</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.apache.zookeeper/zookeeper -->
-		<dependency>
-			<groupId>org.apache.zookeeper</groupId>
-			<artifactId>zookeeper</artifactId>
-			<version>3.8.0</version>
-		</dependency>
-
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger2</artifactId>
@@ -100,8 +94,40 @@
 			<artifactId>spring-beans</artifactId>
 			<version>5.3.23</version>
 		</dependency>
-	</dependencies>
 
+	<dependency>
+	<groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-zookeeper-config</artifactId>
+    <exclusions>
+        <exclusion>
+            <groupId>org.apache.zookeeper</groupId>
+            <artifactId>zookeeper</artifactId>
+        </exclusion>
+    </exclusions>
+</dependency>
+<dependency>
+    <groupId>org.apache.zookeeper</groupId>
+    <artifactId>zookeeper</artifactId>
+    <version>3.8.0</version>
+    <exclusions>
+        <exclusion>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+        </exclusion>
+    </exclusions>
+</dependency>
+	</dependencies>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+</dependencies>
+	</dependencyManagement>
 	<build>
 		<finalName>zen-pack</finalName>
 		<plugins>
