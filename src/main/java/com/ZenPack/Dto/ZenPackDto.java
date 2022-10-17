@@ -18,6 +18,5 @@ public class ZenPackDto {
     private Date createdDate;
     private String updatedBy;
     private Date updatedTime;
-    private String jsonData;
     private List<MenuDto> menus;
 }
