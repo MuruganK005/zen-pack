@@ -1,7 +1,6 @@
 package com.ZenPack.Dto;
 
-import com.ZenPack.model.Feature;
-import com.ZenPack.model.Menu;
+import com.ZenPack.model.FeaturedList;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,6 +15,6 @@ public class MenuDto {
     private Date createdTime;
     private String createdBy;
     private Integer parentMenuId;
-    private List<Menu> menus;
-    private List<Feature> features;
+    private List<MenuDto> menus;
+    private List<FeaturedList> features;
 }

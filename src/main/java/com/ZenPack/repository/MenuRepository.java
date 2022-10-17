@@ -1,6 +1,5 @@
 package com.ZenPack.repository;
 
-import com.ZenPack.model.Menu;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

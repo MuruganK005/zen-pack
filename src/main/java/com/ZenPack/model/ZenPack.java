@@ -16,7 +16,6 @@ import java.util.*;
 @AllArgsConstructor
 @Entity
 @Table(name = "zen_pack")
-/*@JsonIgnoreProperties(ignoreUnknown = true)*/
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ZenPack {
 
@@ -28,7 +27,6 @@ public class ZenPack {
     @Column(name = "zen_pack_name")
     private String name;
 
-    @JsonFormat(shape = JsonFormat.Shape.OBJECT)
     @Column(name = "json_data",length = 50000)
     private String jsonData;
 
