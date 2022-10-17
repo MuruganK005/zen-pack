@@ -15,6 +15,5 @@ public class MenuDto {
     private Date createdTime;
     private String createdBy;
     private Integer parentMenuId;
-    private List<MenuDto> menus;
     private List<FeaturedList> features;
 }
