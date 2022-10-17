@@ -10,7 +10,7 @@ import java.util.List;
 public interface  ZenPackService {
     ResponseEntity<ZenPack> saveZenPack(ZenPack zenPack);
 
-    ZenPackDto createZenPack(ZenPackDto createDto) throws JsonProcessingException;
+    ResponseEntity<ZenPackDto> createZenPack(ZenPackDto createDto) throws JsonProcessingException;
 
     List<ZenPackDto> getAllZenPack() throws JsonProcessingException;
 

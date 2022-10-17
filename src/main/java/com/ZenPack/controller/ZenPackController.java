@@ -37,8 +37,8 @@ public class ZenPackController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<ZenPackDto> createZenPack(@RequestBody ZenPackDto createDto) throws JsonProcessingException {
-        return new ResponseEntity<>(service.createZenPack(createDto), HttpStatus.OK);
+    public ResponseEntity<ZenPackDto> createZenPack(@RequestBody ZenPackDto zenPackDto){
+        return service.createZenPack(zenPackDto);
     }
     @GetMapping(value = "get_all",produces = MediaType.APPLICATION_JSON_VALUE)
     public List<ZenPackDto> getAllZenPack() throws JsonProcessingException {

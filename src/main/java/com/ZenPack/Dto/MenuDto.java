@@ -5,6 +5,7 @@ import com.ZenPack.model.Menu;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -12,7 +13,7 @@ import java.util.List;
 public class MenuDto {
 
     private String menuName;
-    private Long createdTime;
+    private Date createdTime;
     private String createdBy;
     private Integer parentMenuId;
     private List<Menu> menus;

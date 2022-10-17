@@ -45,30 +45,21 @@ public class ZenPackServiceImpl implements ZenPackService {
     }
 
     @Override
-    public ZenPackDto createZenPack(ZenPackDto createDto) throws JsonProcessingException {
-        ZenPackDto zenPackDto1 = null;
-       // for (ZenPackDto zenPackDto : createDto) {
-     // convert request object into json objec
-	  JSONObject zenpackJson = new JSONObject(createDto);
-	  zenPackDto1 = new Gson().fromJson(zenpackJson.toString(), ZenPackDto.class);
-            ModelMapper mapper = new ModelMapper();
-            mapper.getConfiguration().setAmbiguityIgnored(true);
-            ZenPack zenPack = mapper.map(zenPackDto1, ZenPack.class);
-/*            ObjectMapper objectMapper=new ObjectMapper();
-            String menuJson=objectMapper.writeValueAsString(zenPackDto.getMenus());*/
-            JSONArray menuJson = zenpackJson.getJSONArray("menus");
-            MenuDto[] userArray = new Gson().fromJson(menuJson.toString(), MenuDto[].class);
-           // String menuJson = new Gson().toJson(zenPackDto.getMenus());
-            Gson gson = new Gson();
-           // MenuDto[] userArray = gson.fromJson(menuJson, MenuDto[].class);
-            zenPack.setJsonData(menuJson.toString());
-            zenPackDto1 = new ZenPackDto();
-            zenPackDto1.setZenPackId(zenPack.getZenPackId());
-            zenPackDto1.setName(zenPack.getName());
-            zenPackDto1.setMenus(Arrays.asList(userArray));
-            repository.save(zenPack);
-//        }
-        return zenPackDto1;
+    public ResponseEntity<ZenPackDto> createZenPack(ZenPackDto zenPackDto)  {
+        ModelMapper mapper=new ModelMapper();
+        mapper.getConfiguration().setAmbiguityIgnored(true);
+        ZenPack zenPack=mapper.map(zenPackDto,ZenPack.class);
+        String menuJson = new Gson().toJson(zenPackDto.getMenus());
+        zenPack.setJsonData(menuJson);
+       /* zenPack.setCreatedDate(new Date());*/
+        zenPack.setCreatedDate(new Date());
+        zenPack.setUpdatedTime(new Date());
+        repository.save(zenPack);
+        zenPackDto.setZenPackId(zenPack.getZenPackId());
+        /* zenPackDto.setName(zenPack.getName());*/
+        zenPackDto.setCreatedDate(zenPack.getCreatedDate());
+        zenPackDto.setUpdatedTime(zenPack.getUpdatedTime());
+        return new ResponseEntity<>(zenPackDto,HttpStatus.OK);
     }
 
 

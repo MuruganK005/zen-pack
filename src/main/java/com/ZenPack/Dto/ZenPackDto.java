@@ -15,9 +15,9 @@ public class ZenPackDto {
     private Long zenPackId;
     private String name;
     private String createdBy;
-    private Long createdDate;
+    private Date createdDate;
     private String updatedBy;
-    private Long updatedTime;
+    private Date updatedTime;
     private String jsonData;
     private List<MenuDto> menus;
     private List<FeatureDto> features;

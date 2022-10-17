@@ -32,6 +32,19 @@ public class ZenPack {
     @Column(name = "json_data")
     private String jsonData;
 
+    @Column(name = "created_date")
+    private Date updatedTime= new Date();
+
+    @Column(name = "updated_time")
+    private Date createdDate =new Date();
+
+    @Column(name = "created_by")
+    private String createdBy;
+
+    @Column(name = "updated_by")
+    private String updatedBy;
+
+
 
 
     /*@Column(name = "created_by")
