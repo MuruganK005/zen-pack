@@ -20,7 +20,7 @@ import java.util.*;
 public class ZenPack {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "zen_pack_id")
     private Long zenPackId;
 

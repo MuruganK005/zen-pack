@@ -9,8 +9,6 @@ import java.util.*;
 
 @Getter
 @Setter
-@ToString
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ZenPackDto {
     private Long zenPackId;
     private String name;
