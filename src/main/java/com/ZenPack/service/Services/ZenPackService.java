@@ -6,17 +6,15 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 
-public interface ZenPackService {
+public interface  ZenPackService {
     ResponseEntity<ZenPack> saveZenPack(ZenPack zenPack);
 
     ZenPackDto createZenPack(ZenPackDto createDto) throws JsonProcessingException;
 
-    List<ZenPack> getAllZenPack() throws JsonProcessingException;
+    List<ZenPackDto> getAllZenPack() throws JsonProcessingException;
 
     String deleteByzenPackId(Long zenPackId);
 
-    Optional<ZenPack> getByZenPackId(Long zenPackId);
+    ZenPackDto getByZenPackId(Long zenPackId);
 }

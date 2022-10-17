@@ -41,7 +41,7 @@ public class ZenPackController {
         return new ResponseEntity<>(service.createZenPack(createDto), HttpStatus.OK);
     }
     @GetMapping(value = "get_all",produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<ZenPack> getAllZenPack() throws JsonProcessingException {
+    public List<ZenPackDto> getAllZenPack() throws JsonProcessingException {
         return service.getAllZenPack();
     }
     @DeleteMapping("/delete/{zenPackId}")
@@ -49,7 +49,7 @@ public class ZenPackController {
         return service.deleteByzenPackId(zenPackId);
     }
     @GetMapping("/getByZenPackId/{zenPackId}")
-    public Optional<ZenPack> getByZenPackId(@PathVariable Long zenPackId){
+    public ZenPackDto getByZenPackId(@PathVariable Long zenPackId){
         return service.getByZenPackId(zenPackId);
     }
 

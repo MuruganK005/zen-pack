@@ -2,14 +2,12 @@ package com.ZenPack.service.Impl;
 
 import com.ZenPack.Dto.MenuDto;
 import com.ZenPack.Dto.ZenPackDto;
-import com.ZenPack.model.Menu;
 import com.ZenPack.model.ZenPack;
 import com.ZenPack.repository.ZenPackRepository;
 import com.ZenPack.service.Services.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.google.gson.stream.JsonReader;
 import lombok.extern.slf4j.Slf4j;
 
 import org.json.JSONArray;
@@ -23,6 +21,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
+import java.io.StringReader;
 import java.util.*;
 
 @Service
@@ -91,9 +90,23 @@ public class ZenPackServiceImpl implements ZenPackService {
         return new ResponseEntity<>(zenPackDto1, HttpStatus.ACCEPTED);
     }*/
     @Override
-    public List<ZenPack> getAllZenPack() throws JsonProcessingException {
+    public List<ZenPackDto> getAllZenPack() throws JsonProcessingException {
         List<ZenPack> zenPacks = repository.findAll();
-        return zenPacks;
+        List<ZenPackDto> zenPackDtos = new ArrayList<>();
+        for (ZenPack zenpack : zenPacks) {
+            Gson gson = new Gson();
+            ZenPackDto zenPackDto = new ZenPackDto();
+            zenPackDto.setZenPackId(zenpack.getZenPackId());
+            zenPackDto.setName(zenpack.getName());
+            zenPackDto.setZenPackId(zenPackDto.getZenPackId());
+            JsonReader reader = new JsonReader(new StringReader(zenpack.getJsonData()));
+            reader.setLenient(true);
+            MenuDto[] userinfo1 = gson.fromJson(reader, MenuDto[].class);
+            ArrayList<MenuDto> list = new ArrayList(Arrays.asList(userinfo1));
+            zenPackDto.setMenus(list);
+            zenPackDtos.add(zenPackDto);
+        }
+       return zenPackDtos;
     }
 
     @Override
@@ -103,8 +116,17 @@ public class ZenPackServiceImpl implements ZenPackService {
     }
 
     @Override
-    public Optional<ZenPack> getByZenPackId(Long zenPackId) {
+    public ZenPackDto getByZenPackId(Long zenPackId) {
         Optional<ZenPack> zenPack= repository.findByZenPackId(zenPackId);
-        return zenPack;
+        Gson gson=new Gson();
+        ZenPackDto zenPackDto=new ZenPackDto();
+        zenPackDto.setZenPackId(zenPack.get().getZenPackId());
+        zenPackDto.setName(zenPack.get().getName());
+        JsonReader reader = new JsonReader(new StringReader(zenPack.get().getJsonData()));
+        reader.setLenient(true);
+        MenuDto[] userinfo1 = gson.fromJson(reader, MenuDto[].class);
+        ArrayList<MenuDto> list = new ArrayList(Arrays.asList(userinfo1));
+        zenPackDto.setMenus(list);
+        return zenPackDto;
     }
 }
