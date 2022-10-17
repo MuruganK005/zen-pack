@@ -29,7 +29,7 @@ public class ZenPack {
     private String name;
 
     @JsonFormat(shape = JsonFormat.Shape.OBJECT)
-    @Column(name = "json_data")
+    @Column(name = "json_data",length = 50000)
     private String jsonData;
 
     @Column(name = "created_date")
