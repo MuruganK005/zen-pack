@@ -49,9 +49,6 @@ public class ZenPackServiceImpl implements ZenPackService {
         ModelMapper mapper=new ModelMapper();
         mapper.getConfiguration().setAmbiguityIgnored(true);
         ZenPack zenPack=mapper.map(zenPackDto,ZenPack.class);
-        String menuJson = new Gson().toJson(zenPackDto.getMenus());
-        zenPack.setJsonData(menuJson);
-       /* zenPack.setCreatedDate(new Date());*/
         zenPack.setCreatedDate(new Date());
         zenPack.setUpdatedTime(new Date());
         repository.save(zenPack);
@@ -85,16 +82,16 @@ public class ZenPackServiceImpl implements ZenPackService {
         List<ZenPack> zenPacks = repository.findAll();
         List<ZenPackDto> zenPackDtos = new ArrayList<>();
         for (ZenPack zenpack : zenPacks) {
-            Gson gson = new Gson();
             ZenPackDto zenPackDto = new ZenPackDto();
             zenPackDto.setZenPackId(zenpack.getZenPackId());
             zenPackDto.setName(zenpack.getName());
             zenPackDto.setZenPackId(zenPackDto.getZenPackId());
-            JsonReader reader = new JsonReader(new StringReader(zenpack.getJsonData()));
-            reader.setLenient(true);
-            MenuDto[] userinfo1 = gson.fromJson(reader, MenuDto[].class);
-            ArrayList<MenuDto> list = new ArrayList(Arrays.asList(userinfo1));
-            zenPackDto.setMenus(list);
+            zenPackDto.setMenus(zenpack.getMenus());
+//            JsonReader reader = new JsonReader(new StringReader(zenpack.getJsonData()));
+//            reader.setLenient(true);
+//            MenuDto[] userinfo1 = gson.fromJson(reader, MenuDto[].class);
+//            ArrayList<MenuDto> list = new ArrayList(Arrays.asList(userinfo1));
+//            zenPackDto.setMenus(list);
             zenPackDtos.add(zenPackDto);
         }
        return zenPackDtos;
@@ -109,15 +106,14 @@ public class ZenPackServiceImpl implements ZenPackService {
     @Override
     public ZenPackDto getByZenPackId(Long zenPackId) {
         Optional<ZenPack> zenPack= repository.findByZenPackId(zenPackId);
-        Gson gson=new Gson();
-        ZenPackDto zenPackDto=new ZenPackDto();
-        zenPackDto.setZenPackId(zenPack.get().getZenPackId());
-        zenPackDto.setName(zenPack.get().getName());
-        JsonReader reader = new JsonReader(new StringReader(zenPack.get().getJsonData()));
-        reader.setLenient(true);
-        MenuDto[] userinfo1 = gson.fromJson(reader, MenuDto[].class);
-        ArrayList<MenuDto> list = new ArrayList(Arrays.asList(userinfo1));
-        zenPackDto.setMenus(list);
+        ModelMapper mapper=new ModelMapper();
+        mapper.getConfiguration().setAmbiguityIgnored(true);
+        ZenPackDto zenPackDto=mapper.map(zenPack,ZenPackDto.class);
+//        JsonReader reader = new JsonReader(new StringReader(zenPack.get().getJsonData()));
+//        reader.setLenient(true);
+//        MenuDto[] userinfo1 = gson.fromJson(reader, MenuDto[].class);
+//        ArrayList<MenuDto> list = new ArrayList(Arrays.asList(userinfo1));
+//        zenPackDto.setMenus(list);
         return zenPackDto;
     }
 }
