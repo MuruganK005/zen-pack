@@ -1,14 +1,26 @@
 package com.ZenPack.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.google.gson.JsonObject;
-import lombok.*;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import java.util.Date;
+import java.util.List;
 
-import javax.persistence.*;
-import java.util.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+
+import com.ZenPack.Dto.MenuDto;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
@@ -17,6 +29,7 @@ import java.util.*;
 @Entity
 @Table(name = "zen_pack")
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@TypeDef(name = "jsonb", typeClass = JsonBinaryType.class) 
 public class ZenPack {
 
     @Id
@@ -27,8 +40,12 @@ public class ZenPack {
     @Column(name = "zen_pack_name")
     private String name;
 
-    @Column(name = "json_data",length = 50000)
-    private String jsonData;
+//    @Column(name = "json_data",length = 50000)
+//    private String jsonData;
+    
+    @Type(type = "jsonb") // See (2)
+    @Column(name = "json_data", columnDefinition = "jsonb")
+    private List<MenuDto> menus;
 
     @Column(name = "created_date")
     private Date updatedTime= new Date();
