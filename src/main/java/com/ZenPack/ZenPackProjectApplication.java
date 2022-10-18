@@ -60,6 +60,16 @@ public class ZenPackProjectApplication extends SpringBootServletInitializer {
 	public void print() {
 		System.out.println(server);
 	}
+    
+    @Bean
+	public WebMvcConfigurer corsConfigurer() {
+		return new WebMvcConfigurer() {
+			@Override
+			public void addCorsMappings(CorsRegistry registry) {
+				registry.addMapping("/api/v1/*").allowedOrigins("*");
+			}
+		};
+	}
 /*	@Bean
 	public Jackson2ObjectMapperBuilder objectMapperBuilder() {
 		Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder();
