@@ -17,4 +17,6 @@ public interface  ZenPackService {
     String deleteByzenPackId(Long zenPackId);
 
     ZenPackDto getByZenPackId(Long zenPackId);
+    
+    boolean checkZenPackName(String name);
 }
