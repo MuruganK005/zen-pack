@@ -62,6 +62,7 @@ public class FeatureListController {
         return service.getListById(listId)
                 .map(savedList -> {
                     savedList.setText(featuredList.getText());
+                    savedList.setParent(featuredList.getParent());
                     savedList.setFeatureUrl(featuredList.getFeatureUrl());
                     savedList.setIcon(featuredList.getIcon());
                     savedList.setIsSettingMenu(featuredList.getIsSettingMenu());

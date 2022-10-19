@@ -14,6 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,6 +38,7 @@ public class FeatureListServiceTest {
     public void setUp(){
         list= FeaturedList.builder()
                 .id(1)
+                .parent(0)
                 .featureId("#")
                 .text("Project Summary")
                 .icon("icon")
@@ -67,6 +69,7 @@ public class FeatureListServiceTest {
 
         FeaturedList list1= FeaturedList.builder()
                 .id(1)
+                .parent(0)
                 .featureId("#")
                 .text("Project Summary")
                 .icon("icon")
@@ -76,6 +79,7 @@ public class FeatureListServiceTest {
 
         FeaturedList list2= FeaturedList.builder()
                 .id(2)
+                .parent(0)
                 .featureId("#")
                 .text("Validation Rules")
                 .icon("icon")
@@ -83,7 +87,7 @@ public class FeatureListServiceTest {
                 .featureUrl("#")
                 .build();
 
-        given(repository.findAll()).willReturn(List.of(list,list1,list2));
+        given(repository.findAll()).willReturn(Arrays.asList(list,list1,list2));
 
         List<FeaturedList> list = service.findAllList();
 

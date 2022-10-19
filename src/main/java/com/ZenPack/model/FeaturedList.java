@@ -20,6 +20,8 @@ public class FeaturedList {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(name = "parent")
+    private Integer parent;
     @Column(name = "resource_id")
     private String featureId;
     @Column(name = "features")

@@ -57,6 +57,7 @@ public class FeatureListControllerTest {
     void init(){
         FeaturedList list=new FeaturedList();
         list.setId(1);
+        list.setParent(0);
         list.setFeatureId("#");
         list.setText("Project Management");
         list.setFeatureUrl(null);
@@ -65,6 +66,7 @@ public class FeatureListControllerTest {
 
         FeaturedList list1=new FeaturedList();
         list.setId(2);
+        list.setParent(0);
         list.setFeatureId("#");
         list.setText("Project Management");
         list.setFeatureUrl(null);
@@ -76,6 +78,7 @@ public class FeatureListControllerTest {
     void shouldCreateNewFeatureListTest() throws Exception {
         FeaturedList list=new FeaturedList();
         list.setId(1);
+        list.setParent(0);
         list.setFeatureId("#");
         list.setText("Project Management");
         list.setFeatureUrl(null);
