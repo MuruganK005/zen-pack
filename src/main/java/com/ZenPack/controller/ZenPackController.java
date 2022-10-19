@@ -58,5 +58,10 @@ public class ZenPackController {
         ResponseEntity<Page<ZenPack>> response = specificationService.getBySpecification(specificationDto);
         return new ResponseEntity<>(response.getBody(),response.getStatusCode());
     }
+    
+    @GetMapping(value = "checkZenPackName",produces = MediaType.TEXT_HTML_VALUE)
+    public boolean checkZenPackNameExists(@RequestParam String name) throws JsonProcessingException {
+        return service.checkZenPackName(name);
+    }
 
 }
