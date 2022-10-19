@@ -116,4 +116,10 @@ public class ZenPackServiceImpl implements ZenPackService {
 //        zenPackDto.setMenus(list);
         return zenPackDto;
     }
+  
+    @Override
+	public boolean checkZenPackName(String name) {
+		boolean exists = repository.findByName(name).size() ==0 ? false:true;
+		return exists;
+	}
 }
