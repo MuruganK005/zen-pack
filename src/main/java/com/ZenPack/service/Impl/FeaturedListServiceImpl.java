@@ -52,9 +52,11 @@ public class FeaturedListServiceImpl implements FeaturedListService {
         return repository.findById(listId);
     }
 
-    public void deleteList(int id) {
+    @Override
+    public String deleteList(int id) {
         FeaturedList existingList=repository.findById(id).get();
         repository.delete(existingList);
+        return " Id "+id+" Deleted SuccessFully";
     }
 
 

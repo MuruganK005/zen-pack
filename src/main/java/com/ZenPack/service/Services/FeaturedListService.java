@@ -22,6 +22,5 @@ public interface FeaturedListService {
 
     Optional<FeaturedList> getListById(int id);
 
-    void deleteList(int id);
-
+    String deleteList(int id);
 }
