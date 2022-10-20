@@ -38,6 +38,9 @@ public class ZenPackController {
 
     @PostMapping("/create")
     public ResponseEntity<ZenPackDto> createZenPack(@RequestBody ZenPackDto zenPackDto){
+        if(zenPackDto == null || service.checkZenPackName(zenPackDto.getName())){
+    		return new ResponseEntity<>(null,HttpStatus.EXPECTATION_FAILED);
+    	}
         return service.createZenPack(zenPackDto);
     }
     @GetMapping(value = "get_all",produces = MediaType.APPLICATION_JSON_VALUE)
