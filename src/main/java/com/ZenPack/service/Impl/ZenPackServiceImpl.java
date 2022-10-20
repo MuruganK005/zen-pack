@@ -1,28 +1,31 @@
 package com.ZenPack.service.Impl;
 
-import com.ZenPack.Dto.MenuDto;
-import com.ZenPack.Dto.ZenPackDto;
-import com.ZenPack.model.ZenPack;
-import com.ZenPack.repository.ZenPackRepository;
-import com.ZenPack.service.Services.*;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.google.gson.Gson;
-import com.google.gson.stream.JsonReader;
-import lombok.extern.slf4j.Slf4j;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
+import javax.persistence.EntityManager;
+
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityManager;
-import java.io.StringReader;
-import java.util.*;
+import com.ZenPack.Dto.ZenPackDto;
+import com.ZenPack.Specification.SearchRequest;
+import com.ZenPack.Specification.SearchSpecification;
+import com.ZenPack.model.ZenPack;
+import com.ZenPack.repository.ZenPackRepository;
+import com.ZenPack.service.Services.ZenPackService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
@@ -121,5 +124,12 @@ public class ZenPackServiceImpl implements ZenPackService {
 	public boolean checkZenPackName(String name) {
 		boolean exists = repository.findByName(name).size() ==0 ? false:true;
 		return exists;
+	}
+    
+    @Override
+	public Page<ZenPack> searchZenPack(SearchRequest request) {
+		SearchSpecification<ZenPack> specification = new SearchSpecification<>(request);
+        Pageable pageable = SearchSpecification.getPageable(request.getPage(), request.getSize());
+        return repository.findAll(specification, pageable);
 	}
 }
