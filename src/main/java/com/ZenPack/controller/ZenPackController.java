@@ -75,7 +75,7 @@ public class ZenPackController {
         return service.searchZenPack(request);
     }
     
-    @GetMapping(value = "checkZenPackName",produces = MediaType.TEXT_HTML_VALUE)
+    @GetMapping(value = "checkZenPackName",produces = MediaType.APPLICATION_JSON_VALUE)
     public boolean checkZenPackNameExists(@RequestParam String name) throws JsonProcessingException {
         return service.checkZenPackName(name);
     }
