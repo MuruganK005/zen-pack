@@ -51,9 +51,8 @@ public class FeatureListController {
 
 
     @DeleteMapping("/deleteList/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable int id){
-        service.deleteList(id);
+    public String delete(@PathVariable int id){
+        return service.deleteList(id);
     }
 
     @PutMapping("/{id}")
