@@ -11,10 +11,16 @@ import java.util.List;
 @Setter
 public class MenuDto {
 
-    private String menuName;
     private Date createdTime;
     private String createdBy;
     private Integer parentMenuId;
-    private List<FeatureDto> features;
+    private Integer id;
+    private Integer parent;
+    private String featureId;
+    private String text;
+    private String icon;
+    private Boolean isSettingMenu;
+    private Boolean droppable;
+    private String featureUrl;
 
 }
