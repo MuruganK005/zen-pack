@@ -25,7 +25,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import javax.swing.text.Utilities;
 import java.io.IOException;
 
-//
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
 @EnableSwagger2
 @ComponentScan
