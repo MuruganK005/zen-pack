@@ -21,6 +21,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.cors.CorsConfiguration;
 
 import javax.swing.text.Utilities;
 import java.io.IOException;
@@ -67,7 +68,7 @@ public class ZenPackProjectApplication extends SpringBootServletInitializer {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/api/v1/*").allowedOrigins("*");
+				registry.addMapping("/api/v1/*").allowedOrigins("*").allowedMethods(CorsConfiguration.ALL);
 			}
 		};
 	}
