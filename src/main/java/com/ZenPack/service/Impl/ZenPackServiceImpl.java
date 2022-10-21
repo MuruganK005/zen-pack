@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -30,6 +31,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Transactional
 @Slf4j
 public class ZenPackServiceImpl implements ZenPackService {
 
@@ -60,46 +62,23 @@ public class ZenPackServiceImpl implements ZenPackService {
 		zenPack.setUpdatedTime(new Date());
 		repository.save(zenPack);
 		zenPackDto.setZenPackId(zenPack.getZenPackId());
-		/* zenPackDto.setName(zenPack.getName()); */
 		zenPackDto.setCreatedDate(zenPack.getCreatedDate());
 		zenPackDto.setUpdatedTime(zenPack.getUpdatedTime());
 		return new ResponseEntity<>(zenPackDto, HttpStatus.OK);
 	}
 
-	/*
-	 * ZenPack zenPack=new ZenPack(); ObjectMapper mapper=new ObjectMapper(); String
-	 * gson= new Gson().toJson(createDto);
-	 * zenPack.setJsonData(mapper.writeValueAsString(createDto));
-	 * repository.save(zenPack);
-	 */
-	/*
-	 * ResponseDto responseDto=new ResponseDto();
-	 * responseDto.setResponseMessage("ZenPack Created Successfully");
-	 * responseDto.setResponseCode("Ok"); responseDto.setStatusCode(200);
-	 * responseDto.setResponseDescription("ZenPack Created Successfully");
-	 * responseDto.setData(null); Gson gson1=new Gson(); ZenPackDto
-	 * zenPackDto=gson1.fromJson(gson,ZenPackDto.class);
-	 * responseDto.setJdata(zenPackDto);
-	 */
-	/*
-	 * return responseDto; return new ResponseEntity<>(zenPackDto1,
-	 * HttpStatus.ACCEPTED); }
-	 */
 	@Override
 	public List<ZenPackDto> getAllZenPack() throws JsonProcessingException {
 		List<ZenPack> zenPacks = repository.findAll();
 		List<ZenPackDto> zenPackDtos = new ArrayList<>();
 		for (ZenPack zenpack : zenPacks) {
-			ZenPackDto zenPackDto = new ZenPackDto();
+			ModelMapper mapper=new ModelMapper();
+			mapper.getConfiguration().setAmbiguityIgnored(true);
+			ZenPackDto zenPackDto =mapper.map(zenpack, ZenPackDto.class);
 			zenPackDto.setZenPackId(zenpack.getZenPackId());
 			zenPackDto.setName(zenpack.getName());
-			zenPackDto.setZenPackId(zenPackDto.getZenPackId());
 			zenPackDto.setMenus(zenpack.getMenus());
-//            JsonReader reader = new JsonReader(new StringReader(zenpack.getJsonData()));
-//            reader.setLenient(true);
-//            MenuDto[] userinfo1 = gson.fromJson(reader, MenuDto[].class);
-//            ArrayList<MenuDto> list = new ArrayList(Arrays.asList(userinfo1));
-//            zenPackDto.setMenus(list);
+			zenPackDto.setFeatures(zenpack.getFeatures());
 			zenPackDtos.add(zenPackDto);
 		}
 		return zenPackDtos;
@@ -117,11 +96,14 @@ public class ZenPackServiceImpl implements ZenPackService {
 		ModelMapper mapper = new ModelMapper();
 		mapper.getConfiguration().setAmbiguityIgnored(true);
 		ZenPackDto zenPackDto = mapper.map(zenPack, ZenPackDto.class);
-//        JsonReader reader = new JsonReader(new StringReader(zenPack.get().getJsonData()));
-//        reader.setLenient(true);
-//        MenuDto[] userinfo1 = gson.fromJson(reader, MenuDto[].class);
-//        ArrayList<MenuDto> list = new ArrayList(Arrays.asList(userinfo1));
-//        zenPackDto.setMenus(list);
+		zenPackDto.setZenPackId(zenPack.get().getZenPackId());
+		zenPackDto.setCreatedBy(zenPack.get().getCreatedBy());
+		zenPackDto.setUpdatedBy(zenPack.get().getUpdatedBy());
+		zenPackDto.setCreatedDate(zenPack.get().getCreatedDate());
+		zenPackDto.setUpdatedTime(zenPack.get().getUpdatedTime());
+		zenPackDto.setName(zenPack.get().getName());
+		zenPackDto.setMenus(zenPack.get().getMenus());
+		zenPackDto.setFeatures(zenPack.get().getFeatures());
 		return zenPackDto;
 	}
 
