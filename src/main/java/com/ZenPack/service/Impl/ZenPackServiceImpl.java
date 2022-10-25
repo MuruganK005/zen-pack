@@ -93,6 +93,7 @@ public class ZenPackServiceImpl implements ZenPackService {
 	@Override
 	public ZenPackDto getByZenPackId(Long zenPackId) {
 		Optional<ZenPack> zenPack = repository.findByZenPackId(zenPackId);
+		if(zenPack != null && zenPack.isPresent()) {
 		ModelMapper mapper = new ModelMapper();
 		mapper.getConfiguration().setAmbiguityIgnored(true);
 		ZenPackDto zenPackDto = mapper.map(zenPack, ZenPackDto.class);
@@ -105,6 +106,10 @@ public class ZenPackServiceImpl implements ZenPackService {
 		zenPackDto.setMenus(zenPack.get().getMenus());
 		zenPackDto.setFeatures(zenPack.get().getFeatures());
 		return zenPackDto;
+		}
+		else {
+			return null;
+		}
 	}
 
 	@Override
