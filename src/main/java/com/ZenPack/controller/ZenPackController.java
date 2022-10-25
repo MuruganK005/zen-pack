@@ -59,9 +59,13 @@ public class ZenPackController {
     public String deleteByZenPackId(@PathVariable Long zenPackId){
         return service.deleteByzenPackId(zenPackId);
     }
-    @GetMapping("/getByZenPackId/{zenPackId}")
-    public ZenPackDto getByZenPackId(@PathVariable Long zenPackId){
-        return service.getByZenPackId(zenPackId);
+    @GetMapping(value = "/getByZenPackId/{zenPackId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ZenPackDto> getByZenPackId(@PathVariable Long zenPackId){
+        com.ZenPack.Dto.ZenPackDto result = service.getByZenPackId(zenPackId);
+        if(result == null) {
+        	return ResponseEntity.notFound().eTag(zenPackId + " not found").build();
+        }
+        return ResponseEntity.ok().body(result);
     }
 
     @PostMapping("/search")
