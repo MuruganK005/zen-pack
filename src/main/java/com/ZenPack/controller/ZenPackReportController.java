@@ -45,12 +45,20 @@ public class ZenPackReportController {
 	}
 
 	@GetMapping("/getReportHeaderById/{reportId}")
-	public ReportHeader getReportHeaderById(@PathVariable Long reportId) {
-		return service.getReportHeaderById(reportId);
+	public ResponseEntity<ReportHeader> getReportHeaderById(@PathVariable Long reportId) {
+		ReportHeader result = service.getReportHeaderById(reportId);
+		if(result == null) {
+        	return ResponseEntity.notFound().eTag(reportId + " not found").build();
+        }
+        return ResponseEntity.ok().body(result);
 	}
 	
 	@GetMapping("/getReportHeaderByName/{name}")
-	public ReportHeader getReportHeaderByName(@PathVariable String name) {
-		return service.getReportHeaderByName(name);
+	public ResponseEntity<ReportHeader> getReportHeaderByName(@PathVariable String name) {
+		ReportHeader result = service.getReportHeaderByName(name);
+		if(result == null) {
+        	return ResponseEntity.notFound().eTag(name + " not found").build();
+        }
+        return ResponseEntity.ok().body(result);
 	}
 }
