@@ -70,9 +70,9 @@ public class FeaturedListRepositoryTest {
 
         featuredListRepository.save(list);
 
-        FeaturedList existingMovie = featuredListRepository.findById(list.getId()).get();
-        existingMovie.setText("Project Management");
-        FeaturedList updatedList = featuredListRepository.save(existingMovie);
+        FeaturedList existingList = featuredListRepository.findById(list.getId()).get();
+        existingList.setText("Project Management");
+        FeaturedList updatedList = featuredListRepository.save(existingList);
 
         assertEquals("Project Management", updatedList.getText());
     }
@@ -98,10 +98,10 @@ public class FeaturedListRepositoryTest {
 
         List<FeaturedList> list1 = featuredListRepository.findAll();
 
-        Optional<FeaturedList> exitingMovie = featuredListRepository.findById(id);
+        Optional<FeaturedList> existingList = featuredListRepository.findById(id);
 
 //        assertEquals(5, list1.size());
-        assertThat(exitingMovie).isEmpty();
+        assertThat(existingList).isEmpty();
 
     }
 }
