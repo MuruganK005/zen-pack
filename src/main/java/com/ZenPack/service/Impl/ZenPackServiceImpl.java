@@ -8,6 +8,7 @@ import java.util.Optional;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
+import com.ZenPack.exception.ZenPackException;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,7 +55,11 @@ public class ZenPackServiceImpl implements ZenPackService {
 	}
 
 	@Override
-	public ResponseEntity<ZenPackDto> createZenPack(ZenPackDto zenPackDto) {
+	public ResponseEntity<ZenPackDto> createZenPack(ZenPackDto zenPackDto) throws ZenPackException {
+		Optional<ZenPack> zenPack1=repository.findByName(zenPackDto.getName());
+		if (zenPack1.isPresent()&& zenPack1.get().getZenPackId() != zenPackDto.getZenPackId()) {
+			throw new ZenPackException(HttpStatus.FOUND,"ZenPackName Already Exist");
+		}
 		ModelMapper mapper = new ModelMapper();
 		mapper.getConfiguration().setAmbiguityIgnored(true);
 		ZenPack zenPack = mapper.map(zenPackDto, ZenPack.class);
@@ -114,8 +119,12 @@ public class ZenPackServiceImpl implements ZenPackService {
 
 	@Override
 	public boolean checkZenPackName(String name) {
-		boolean exists = repository.findByName(name).size() == 0 ? false : true;
-		return exists;
+		Optional<ZenPack> zenPack = repository.findByName(name);
+		if(zenPack.isPresent()){
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@Override
