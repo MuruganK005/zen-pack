@@ -61,4 +61,8 @@ public class ZenPack {
     @Column(name = "updated_by")
     private String updatedBy;
 
+    @Column(name = "in_active")
+    private Boolean inActive=false;
+
+
 }

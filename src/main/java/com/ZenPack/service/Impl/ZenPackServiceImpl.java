@@ -134,6 +134,16 @@ public class ZenPackServiceImpl implements ZenPackService {
 		return repository.findAll(specification, pageable);
 	}
 
+	@Override
+	public String setActiveOrInActive(Long zenPackId) {
+		Optional<ZenPack> entity = repository.findByZenPackId(zenPackId);
+		if (entity.isPresent()) {
+			entity.get().setInActive(true);
+			repository.save(entity.get());
+		}
+		return "ZenPack "+zenPackId+" Set InActive Successful";
+	}
+
 	public ReportHeader createReportHeader(final ReportHeader reportHeader) {
 		return this.reportHeaderRepo.save(reportHeader);
 	}
