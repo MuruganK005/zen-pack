@@ -160,7 +160,7 @@ public class ReportControllerTest {
         when(service.getReportHeaderByName("Zen")).thenReturn(reportHeader);
 
         this.mockMvc.perform(get("/api/v1/reportHeader/getReportHeaderById/{reportId}", 3L))
-                .andExpect(status().isOk());
+                .andExpect(status().isNotFound());
     }
 
 
