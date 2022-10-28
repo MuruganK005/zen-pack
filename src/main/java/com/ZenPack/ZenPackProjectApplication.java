@@ -29,7 +29,6 @@ import java.io.IOException;
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
 @EnableSwagger2
 @ComponentScan
-//@SpringBootApplication
 public class ZenPackProjectApplication extends SpringBootServletInitializer {
 	
 	@Value("${postgresurl}")

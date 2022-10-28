@@ -26,18 +26,6 @@ public class ZenPackSpecification implements Specification<ZenPack> {
         this.criteria=specificationDto;
     }
 
-//    @Override
-//    public Predicate toPredicate(Root<ZenPackDto> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
-//        if (criteria.getOperation().equals("EQUAL")) {
-//            return builder.equal(
-//                    root.get(criteria.getKey()), criteria.getValue().toString());
-//        } else if (criteria.getOperation().equals("NOT_EQUAL")) {
-//            return builder.equal(root.get(criteria.getKey()), criteria.getValue().toString());
-//        }else if(criteria.getOperation().equals("CONTAIN")){
-//            return builder.like(root.get(criteria.getKey()),criteria.getKey().toString());
-//        }
-//        return null;
-//    }
 
     @Override
     public Predicate toPredicate(final Root<ZenPack> root, final CriteriaQuery<?> query, final CriteriaBuilder builder) {
