@@ -2,12 +2,18 @@ package com.ZenPack.controller;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import com.ZenPack.excel.ZenPackExcelExporter;
+import com.ZenPack.exception.ZenPackException;
+import com.ZenPack.repository.ExcelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -35,6 +41,8 @@ import com.ZenPack.service.Impl.ZenPackServiceImpl;
 import com.ZenPack.service.Services.SpecificationService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
+import javax.servlet.http.HttpServletResponse;
+
 @RestController
 @RequestMapping("/api/v1")
 public class ZenPackController {
@@ -48,19 +56,29 @@ public class ZenPackController {
     @Autowired
     private SpecificationService specificationService;
 
+    @Autowired
+    private ExcelRepository excelRepository;
+
 
     @PostMapping("/save")
     public ResponseEntity<ZenPack> saveZenPack(@RequestBody ZenPack zenPack) {
         return service.saveZenPack(zenPack);
     }
 
+//    @PostMapping("/create")
+//    public ResponseEntity<ZenPackDto> createZenPack(@RequestBody ZenPackDto zenPackDto){
+//        if(zenPackDto == null || service.checkZenPackName(zenPackDto.getName())){
+//    		return new ResponseEntity<>(null,HttpStatus.EXPECTATION_FAILED);
+//    	}
+//        return service.createZenPack(zenPackDto);
+//    }
+
     @PostMapping("/create")
-    public ResponseEntity<ZenPackDto> createZenPack(@RequestBody ZenPackDto zenPackDto){
-        if(zenPackDto == null || service.checkZenPackName(zenPackDto.getName())){
-    		return new ResponseEntity<>(null,HttpStatus.EXPECTATION_FAILED);
-    	}
+    public ResponseEntity<ZenPackDto> createZenPack(@RequestBody ZenPackDto zenPackDto) throws ZenPackException, ZenPackException {
         return service.createZenPack(zenPackDto);
     }
+
+
     @GetMapping(value = "get_all",produces = MediaType.APPLICATION_JSON_VALUE)
     public List<ZenPackDto> getAllZenPack() throws JsonProcessingException {
         return service.getAllZenPack();
@@ -122,4 +140,20 @@ public class ZenPackController {
     	request.setSorts(sortRequest);
     	return request;
     }
+    
+    @GetMapping("/export/excel")//new one
+    public void exportToExcel(HttpServletResponse response) throws IOException {
+
+        response.setContentType("application/octet-stream");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+        String headerKey = "Content-Disposition";
+        String headervalue = "attachment; filename=ZenPack_info"+currentDateTime+".xlsx";
+
+        response.setHeader(headerKey, headervalue);
+        List<ZenPack> listStudent = excelRepository.findAll();
+        ZenPackExcelExporter exp = new ZenPackExcelExporter(listStudent);
+        exp.export(response);
+    }
+
 }

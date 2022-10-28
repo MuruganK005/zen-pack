@@ -11,17 +11,13 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import lombok.*;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
 import com.ZenPack.Dto.HeaderInfoDto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
-
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Getter
 @Setter
@@ -32,6 +28,7 @@ import lombok.Setter;
 		@UniqueConstraint(name = "UniqueReportName", columnNames = { "REPORT_NAME" }) })
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @TypeDef(name = "jsonb", typeClass = JsonBinaryType.class)
+@Builder
 public class ReportHeader implements Serializable {
 
 	private static final long serialVersionUID = 1L;
