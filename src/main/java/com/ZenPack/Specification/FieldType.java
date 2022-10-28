@@ -52,6 +52,12 @@ public enum FieldType {
         }
     },
 
+    TEXT {
+        public Object parse(String value) {
+            return value;
+        }
+    },
+    
     STRING {
         public Object parse(String value) {
             return value;

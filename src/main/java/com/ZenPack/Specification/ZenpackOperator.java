@@ -13,7 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public enum ZenpackOperator {
 
-	EQUAL {
+	EQUALS {
 		public <T> Predicate build(Root<T> root, CriteriaBuilder cb, FilterRequest request, Predicate predicate) {
 			Object value = request.getFieldType().parse(request.getValue().toString());
 			Expression<?> key = root.get(request.getKey());
@@ -46,7 +46,57 @@ public enum ZenpackOperator {
 			return cb.and(inClause, predicate);
 		}
 	},
+	CONTAINS {
+		public <T> Predicate build(Root<T> root, CriteriaBuilder cb, FilterRequest request, Predicate predicate) {
+			Expression<String> key = root.get(request.getKey());
+			return cb.and(cb.like(cb.upper(key), "%" + request.getValue().toString().toUpperCase() + "%"), predicate);
+		}
+	},
+	NOT_CONTAINS {
+		public <T> Predicate build(Root<T> root, CriteriaBuilder cb, FilterRequest request, Predicate predicate) {
+			Expression<String> key = root.get(request.getKey());
+			return cb.and(cb.notLike(cb.upper(key), "%" + request.getValue().toString().toUpperCase() + "%"), predicate);
+		}
+	},
+	
+	STARTS_WITH {
+		public <T> Predicate build(Root<T> root, CriteriaBuilder cb, FilterRequest request, Predicate predicate) {
+			Expression<String> key = root.get(request.getKey());
+			return cb.and(cb.like(cb.upper(key), request.getValue().toString().toUpperCase() + "%"), predicate);
+		}
+	},
 
+	ENDS_WITH {
+		public <T> Predicate build(Root<T> root, CriteriaBuilder cb, FilterRequest request, Predicate predicate) {
+			Expression<String> key = root.get(request.getKey());
+			return cb.and(cb.like(cb.upper(key), "%" + request.getValue().toString().toUpperCase()), predicate);
+		}
+	},
+	
+	BLANKS {
+		public <T> Predicate build(Root<T> root, CriteriaBuilder cb, FilterRequest request, Predicate predicate) {
+			Expression<String> key = root.get(request.getKey());
+			return cb.and(cb.equal(cb.upper(key), ""), predicate);
+		}
+	},
+	NOT_BLANKS {
+		public <T> Predicate build(Root<T> root, CriteriaBuilder cb, FilterRequest request, Predicate predicate) {
+			Expression<String> key = root.get(request.getKey());
+			return cb.and(cb.notEqual(cb.upper(key), ""), predicate);
+		}
+	},
+	GREATER_THAN {
+		public <T> Predicate build(Root<T> root, CriteriaBuilder cb, FilterRequest request, Predicate predicate) {
+			Expression<String> key = root.get(request.getKey());
+			return cb.and(cb.greaterThan(cb.upper(key), "%" + request.getValue().toString()), predicate);
+		}
+	},
+	LESS_THAN {
+		public <T> Predicate build(Root<T> root, CriteriaBuilder cb, FilterRequest request, Predicate predicate) {
+			Expression<String> key = root.get(request.getKey());
+			return cb.and(cb.lessThan(cb.upper(key), "%" + request.getValue().toString()), predicate);
+		}
+	},
 	BETWEEN {
 		public <T> Predicate build(Root<T> root, CriteriaBuilder cb, FilterRequest request, Predicate predicate) {
 			Object value = request.getFieldType().parse(request.getValue().toString());
@@ -69,6 +119,8 @@ public enum ZenpackOperator {
 			log.info("Can not use between for {} field type.", request.getFieldType());
 			return predicate;
 		}
+		
+	
 	};
 
 	public abstract <T> Predicate build(Root<T> root, CriteriaBuilder cb, FilterRequest request, Predicate predicate);

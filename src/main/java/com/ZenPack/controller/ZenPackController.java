@@ -1,6 +1,9 @@
 package com.ZenPack.controller;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,9 +19,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ZenPack.Dto.SearchFilterDto;
+import com.ZenPack.Dto.SortSpecificationDto;
 import com.ZenPack.Dto.SpecificationDto;
 import com.ZenPack.Dto.ZenPackDto;
+import com.ZenPack.Specification.FieldType;
+import com.ZenPack.Specification.FilterRequest;
 import com.ZenPack.Specification.SearchRequest;
+import com.ZenPack.Specification.SortDirection;
+import com.ZenPack.Specification.SortRequest;
+import com.ZenPack.Specification.ZenpackOperator;
 import com.ZenPack.model.ZenPack;
 import com.ZenPack.repository.ZenPackRepository;
 import com.ZenPack.service.Impl.ZenPackServiceImpl;
@@ -75,8 +85,9 @@ public class ZenPackController {
     }
     
     @PostMapping("/searchZenPack")
-    public Page<ZenPack> searchZenPack(@RequestBody SearchRequest request) {
-        return service.searchZenPack(request);
+    public Page<ZenPack> searchZenPack(@RequestBody SearchFilterDto request) {
+    	
+        return service.searchZenPack(getSearchRequest(request));
     }
     
     @GetMapping(value = "checkZenPackName",produces = MediaType.APPLICATION_JSON_VALUE)
@@ -84,4 +95,31 @@ public class ZenPackController {
         return service.checkZenPackName(name);
     }
 
+    private SearchRequest getSearchRequest(SearchFilterDto searchFilter) {
+    	SearchRequest request = new SearchRequest();
+    	Map<String, Map<String,String>> filter = searchFilter.getFilterModel();
+    	List<SortSpecificationDto> sortModel = searchFilter.getSortModel();
+    	List<FilterRequest> filterRequest = new ArrayList<>();
+    	List<SortRequest> sortRequest = new ArrayList<>();
+    	Iterator<String> keyItr = filter.keySet().iterator();
+    	while(keyItr.hasNext()) {
+    		String filterName = keyItr.next();
+    		Map<String,String> filterValues = filter.get(filterName);
+    		FilterRequest filterReq = new FilterRequest();
+    		filterReq.setFieldType(FieldType.valueOf(filterValues.get("filterType").toUpperCase()));
+        	filterReq.setOperator(ZenpackOperator.valueOf(filterValues.get("type").toUpperCase()));
+        	filterReq.setKey(filterName);
+        	filterReq.setValue(filterValues.get("filter"));
+        	filterRequest.add(filterReq);
+    	}
+    	for(SortSpecificationDto sort: sortModel) {
+    		SortRequest req = new SortRequest();
+    		req.setDirection(SortDirection.valueOf(sort.getSort().toUpperCase()));
+    		req.setKey(sort.getColId());
+    		sortRequest.add(req);
+    	}
+    	request.setFilters(filterRequest);
+    	request.setSorts(sortRequest);
+    	return request;
+    }
 }
