@@ -3,6 +3,8 @@ package com.ZenPack.ZenPackTest;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -29,6 +31,10 @@ public class ZenPackRepositoryTest {
     @Autowired
     private MockMvc mockMvc;
 
+	LocalDateTime myDateObj = LocalDateTime.now();
+	DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+	String formattedDate = myDateObj.format(myFormatObj);
+
 
 
     @Test
@@ -38,9 +44,9 @@ public class ZenPackRepositoryTest {
     	zenpack.setZenPackId(101L);
     	zenpack.setName("test zenpack1");
     	zenpack.setCreatedBy("team1");
-    	zenpack.setCreatedDate(new Date());
+    	zenpack.setCreatedDate(formattedDate);
     	zenpack.setUpdatedBy("Team1");
-    	zenpack.setUpdatedTime(new Date());
+    	zenpack.setUpdatedTime(formattedDate);
     	
     	MenuDto menuDto = new MenuDto();
     	menuDto.setFeatureUrl("https://google.com");

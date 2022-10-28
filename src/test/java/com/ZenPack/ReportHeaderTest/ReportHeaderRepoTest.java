@@ -24,7 +24,7 @@ public class ReportHeaderRepoTest {
     @Autowired
     private ReportHeaderRepository repository;
 
-    @Test
+//    @Test
     @Order(1)
     @Rollback(value = false)
     void saveReportHeader(){
@@ -38,7 +38,7 @@ public class ReportHeaderRepoTest {
 
     }
 
-    @Test
+//    @Test
     @Order(2)
     @Rollback(value = false)
     void getAllReports(){
@@ -49,7 +49,7 @@ public class ReportHeaderRepoTest {
         assertNotEquals(7,reportHeaderList.size());
     }
 
-    @Test
+//    @Test
     @Order(4)
     @Rollback(value = false)
     void deleteList() {

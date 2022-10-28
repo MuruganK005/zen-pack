@@ -19,6 +19,8 @@ import org.mockito.quality.Strictness;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -38,15 +40,19 @@ public class ZenPackServiceTest {
     private ZenPackDto zenPackDto;
     private MenuDto menuDto;
 
+	LocalDateTime myDateObj = LocalDateTime.now();
+	DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+	String formattedDate = myDateObj.format(myFormatObj);
+
     @BeforeEach
     public void setUp(){
     	zenPackDto= new ZenPackDto();
     	zenPackDto.setZenPackId(210L);
     	zenPackDto.setName("Test_Controller");
-    	zenPackDto.setCreatedDate(new Date());
+    	zenPackDto.setCreatedDate(formattedDate);
     	zenPackDto.setCreatedBy("Team2");
     	zenPackDto.setUpdatedBy("Team2");
-    	zenPackDto.setUpdatedTime(new Date());
+    	zenPackDto.setUpdatedTime(formattedDate);
     	
 		menuDto = new MenuDto();
 		menuDto.setFeatureUrl("https://google.com");

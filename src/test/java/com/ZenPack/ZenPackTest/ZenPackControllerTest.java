@@ -20,6 +20,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -51,20 +54,24 @@ public class ZenPackControllerTest {
     private ZenPackDto zenPackDto; 
     private MenuDto menuDto;
 
+	LocalDateTime myDateObj = LocalDateTime.now();
+	DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+	String formattedDate = myDateObj.format(myFormatObj);
+
 
     @BeforeEach
     void init(){
     	zenPackDto = new ZenPackDto();
 		zenPackDto.setZenPackId(210L);
 		zenPackDto.setName("Test_Controller");
-		zenPackDto.setCreatedDate(new Date());
+		zenPackDto.setCreatedDate(formattedDate);
 		zenPackDto.setCreatedBy("Team2");
 		zenPackDto.setUpdatedBy("Team2");
-		zenPackDto.setUpdatedTime(new Date());
+		zenPackDto.setUpdatedTime(formattedDate);
 		
 		menuDto = new MenuDto();
 		menuDto.setParentMenuId(101);
-		menuDto.setCreatedTime(new Date());
+		menuDto.setCreatedTime(formattedDate);
 		menuDto.setCreatedBy("Team2");
 		menuDto.setFeatureUrl("https://google.com");
 		menuDto.setFeatureId("f202");
@@ -96,14 +103,14 @@ public class ZenPackControllerTest {
     	ZenPackDto zenPackDto = new ZenPackDto();
 		zenPackDto.setZenPackId(210L);
 		zenPackDto.setName("Test_Controller");
-		zenPackDto.setCreatedDate(new Date());
+		zenPackDto.setCreatedDate(formattedDate);
 		zenPackDto.setCreatedBy("Team2");
 		zenPackDto.setUpdatedBy("Team2");
-		zenPackDto.setUpdatedTime(new Date());
+		zenPackDto.setUpdatedTime(formattedDate);
 		MenuDto menuDto = new MenuDto();
 		//menuDto.setMenuName("Test_zenpack1_menu");
 		menuDto.setParentMenuId(101);
-		menuDto.setCreatedTime(new Date());
+		menuDto.setCreatedTime(formattedDate);
 		menuDto.setCreatedBy("Team2");
 		
 		FeatureDto featureDto = new FeatureDto();

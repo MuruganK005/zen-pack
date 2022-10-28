@@ -50,10 +50,10 @@ public class ZenPack {
     private List<FeatureDto> features;
 
     @Column(name = "created_date")
-    private Date updatedTime= new Date();
+    private String createdDate;
 
     @Column(name = "updated_time")
-    private Date createdDate =new Date();
+    private String updatedTime;
 
     @Column(name = "created_by")
     private String createdBy;

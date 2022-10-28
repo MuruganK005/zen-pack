@@ -1,5 +1,7 @@
 package com.ZenPack.service.Impl;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -47,6 +49,10 @@ public class ZenPackServiceImpl implements ZenPackService {
 
 	private static final Logger logger = LoggerFactory.getLogger(ZenPackServiceImpl.class);
 
+	LocalDateTime myDateObj = LocalDateTime.now();
+	DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+	String formattedDate = myDateObj.format(myFormatObj);
+
 	@Override
 	public ResponseEntity<ZenPack> saveZenPack(ZenPack zenPack) {
 		repository.save(zenPack);
@@ -63,8 +69,8 @@ public class ZenPackServiceImpl implements ZenPackService {
 		ModelMapper mapper = new ModelMapper();
 		mapper.getConfiguration().setAmbiguityIgnored(true);
 		ZenPack zenPack = mapper.map(zenPackDto, ZenPack.class);
-		zenPack.setCreatedDate(new Date());
-		zenPack.setUpdatedTime(new Date());
+		zenPack.setCreatedDate(formattedDate);
+		zenPack.setUpdatedTime(formattedDate);
 		repository.save(zenPack);
 		zenPackDto.setZenPackId(zenPack.getZenPackId());
 		zenPackDto.setCreatedDate(zenPack.getCreatedDate());
