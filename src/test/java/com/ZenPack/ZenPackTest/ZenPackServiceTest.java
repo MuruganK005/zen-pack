@@ -62,7 +62,7 @@ public class ZenPackServiceTest {
 		menuDto.setDroppable(false);
 		menuDto.setParent(101);
 		menuDto.setParentMenuId(101);
-		menuDto.setCreatedTime(new Date());
+		menuDto.setCreatedTime(formattedDate);
 		menuDto.setCreatedBy("Team2");
 		
 		FeatureDto featureDto = new FeatureDto();
