@@ -156,4 +156,9 @@ public class ZenPackController {
         exp.export(response);
     }
 
+    @DeleteMapping("/set_in_active/{zenPackId}")
+    public String setZenPackActiveOrInActive(@PathVariable Long zenPackId){
+        return  service.setActiveOrInActive(zenPackId);
+    }
+
 }
