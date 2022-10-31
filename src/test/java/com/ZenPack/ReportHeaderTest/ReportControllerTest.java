@@ -91,7 +91,7 @@ public class ReportControllerTest {
     }
 
 
-//    @Test
+    @Test
     void create() throws Exception {
         ReportHeader reportHeader = new ReportHeader();
 
@@ -115,7 +115,7 @@ public class ReportControllerTest {
         JSONAssert.assertEquals("{actualName:\"Zen_Pack\"}", actual, false);
     }
 
-//    @Test
+    @Test
     void shouldGetAllReports() throws Exception {
         List<ReportHeader> reportHeaderList = new ArrayList<>();
         reportHeaderList.add(reportHeader);
