@@ -82,7 +82,7 @@ public class ZenPackServiceTest {
 		zenPackDto.setFeatures(featureList);
 		zenPackDto.setMenus(menuList);
     }
-    @Test
+  //  @Test
     @DisplayName("Junit Test for Save List")
     void saveList(){
     	ModelMapper mapper = new ModelMapper();

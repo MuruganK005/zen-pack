@@ -32,7 +32,7 @@ public class FeaturedListRepositoryTest {
     private FeaturedList list1;
 
 
-    @Test
+ //   @Test
     @DisplayName("It Should save the list to database")
     void save(){
         FeaturedList list=new FeaturedList();
@@ -47,7 +47,7 @@ public class FeaturedListRepositoryTest {
         assertThat(newList.getId()).isNotEqualTo(null);
     }
 
-    @Test
+  //  @Test
     @DisplayName("It should return List from database")
     void getAllList(){
         List<FeaturedList> featuredLists = featuredListRepository.findAll();
@@ -77,7 +77,7 @@ public class FeaturedListRepositoryTest {
         assertEquals("Project Management", updatedList.getText());
     }
 //
-    @Test
+ //   @Test
     @DisplayName("It should delete the existing list")
     void deleteList() {
 
